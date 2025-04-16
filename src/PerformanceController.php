@@ -176,7 +176,7 @@ class PerformanceController extends BitrixController
             'ASSIGNED_BY_ID' => $id,
             '>=CLOSEDATE' => $startDate,
             '<=CLOSEDATE' => $endDate
-        ], ['ID', 'CLOSEDATE', 'OPPORTUNITY', 'STAGE_ID', 'UF_CRM_1591696089203', 'CLOSED']);
+        ], ['ID', 'CLOSEDATE', 'OPPORTUNITY', 'STAGE_ID', 'UF_CRM_67FF84E2BE481', 'CLOSED']);
 
         // Deals without updates for over 14 days
         $dealsWithoutUpdates = array_filter($deals, function ($deal) {
@@ -214,7 +214,7 @@ class PerformanceController extends BitrixController
         $meetingsArranged = array_filter($deals, fn($deal) => in_array($deal['STAGE_ID'], ['UC_9QFUT2']));
 
         $monthlyEarnings = array_sum(array_map(fn($deal) => (float)$deal['OPPORTUNITY'], $closedDeals));
-        $grossCommission = array_sum(array_map(fn($deal) => (float)$deal['UF_CRM_1591696089203'], $closedDeals));
+        $grossCommission = array_sum(array_map(fn($deal) => (float)$deal['UF_CRM_67FF84E2BE481'], $closedDeals));
 
         return [
             $monthName => [
