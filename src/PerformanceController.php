@@ -156,13 +156,13 @@ class PerformanceController extends BitrixController
         $endDate = (new DateTime("$year-$month-01"))->modify('last day of this month')->format('Y-m-d');
 
         // Filter ads based on creation time (Bitrix does not support date filtering on custom fields directly)
-        $ads = $this->getAllUserAds(['ufCrm37AgentEmail' => $userEmail], [
-            'ufCrm37Status',
-            'ufCrm37PfEnable',
-            'ufCrm37BayutEnable',
-            'ufCrm37DubizzleEnable',
-            'ufCrm37WebsiteEnable',
-            'ufCrm37Price',
+        $ads = $this->getAllUserAds(['ufCrm15AgentEmail' => $userEmail], [
+            'ufCrm15Status',
+            'ufCrm15PfEnable',
+            'ufCrm15BayutEnable',
+            'ufCrm15DubizzleEnable',
+            'ufCrm15WebsiteEnable',
+            'ufCrm15Price',
             'createdTime'
         ]);
         $ads = array_filter($ads, function ($ad) use ($startDate, $endDate) {
@@ -185,17 +185,17 @@ class PerformanceController extends BitrixController
         });
 
         // Ad categorization
-        $published = array_filter($ads, fn($ad) => $ad['ufCrm37Status'] === 'PUBLISHED');
-        $live = array_filter($ads, fn($ad) => $ad['ufCrm37Status'] === 'LIVE');
-        $draft = array_filter($ads, fn($ad) => $ad['ufCrm37Status'] === 'DRAFT');
+        $published = array_filter($ads, fn($ad) => $ad['ufCrm15Status'] === 'PUBLISHED');
+        $live = array_filter($ads, fn($ad) => $ad['ufCrm15Status'] === 'LIVE');
+        $draft = array_filter($ads, fn($ad) => $ad['ufCrm15Status'] === 'DRAFT');
 
-        $pf = array_filter($published, fn($ad) => $ad['ufCrm37PfEnable'] === 'Y');
-        $bayut = array_filter($published, fn($ad) => $ad['ufCrm37BayutEnable'] === 'Y');
-        $dubizzle = array_filter($published, fn($ad) => $ad['ufCrm37DubizzleEnable'] === 'Y');
-        $website = array_filter($published, fn($ad) => $ad['ufCrm37WebsiteEnable'] === 'Y');
+        $pf = array_filter($published, fn($ad) => $ad['ufCrm15PfEnable'] === 'Y');
+        $bayut = array_filter($published, fn($ad) => $ad['ufCrm15BayutEnable'] === 'Y');
+        $dubizzle = array_filter($published, fn($ad) => $ad['ufCrm15DubizzleEnable'] === 'Y');
+        $website = array_filter($published, fn($ad) => $ad['ufCrm15WebsiteEnable'] === 'Y');
 
         $worth = array_sum(array_map(
-            fn($ad) => (float)$ad['ufCrm37Price'],
+            fn($ad) => (float)$ad['ufCrm15Price'],
             $published
         ));
 
